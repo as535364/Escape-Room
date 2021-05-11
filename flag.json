@@ -1,0 +1,8 @@
+{
+    "pA": {"easy": "easyA", "hard": "hardA"},
+    "pB": {"easy": "easyB", "hard": "hardB"},
+    "pC": {"easy": "easyC", "hard": "hardC"},
+    "pD": {"easy": "easyD", "hard": "hardD"},
+    "pE": {"easy": "easyE", "hard": "hardE"},
+    "pF": {"easy": "easyF", "hard": "hardF"}
+}
