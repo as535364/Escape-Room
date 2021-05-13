@@ -30,6 +30,15 @@
     {% endif %}
     {% endwith %}
 
+    {% if completed %}
+    <ul class="list-inline">
+    Done:
+    {% for problem in completed %}
+        <li class="list-inline-item">{{ problem }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
     <form action="{{ url_for('flag') }}" method="post">
         <div class="mb-3">
             <select class="form-select" name="problem" required>
