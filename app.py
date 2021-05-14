@@ -16,7 +16,7 @@ with open('message.json') as fp:
 def index():
     if not request.cookies.get('completed'):
         resp = make_response(render_template('index.html', completed=None))
-        resp.set_cookie(key='completed', value=json.dumps([]), expires=time.time() + 6 * 60)
+        resp.set_cookie(key='completed', value=json.dumps({}), expires=time.time() + 6 * 60)
         return resp
     else:
         completed = sorted(json.loads(request.cookies.get('completed')))
@@ -33,19 +33,28 @@ def flag():
     easy = flags[problem]['easy'] == to_check_flag
     hard = flags[problem]['hard'] == to_check_flag
     resp = make_response(redirect(url_for('index')))
+    completed = json.loads(request.cookies.get('completed'))
     if not easy and not hard:
         flash('Something went wrong!', 'warning')
     elif easy:
         flash(f"Easy mission completed: {message[problem]['easy']}", 'success')
+        completed[problem + 'easy'] = True
     elif hard:
         flash(f"Hard mission completed: {message[problem]['hard']}", 'success')
+        completed[problem + 'hard'] = True
     if easy or hard:
-        completed = json.loads(request.cookies.get('completed'))
-        completed.append(problem)
         resp.set_cookie(key='completed', value=json.dumps(completed), expires=time.time() + 6 * 60)
         with open('record.json', 'w') as f:
             json.dump(completed, f)
     return resp
+
+
+@app.route('/problem/<problem_id>')
+def get_problem(problem_id):
+    if problem_id not in {'pA', 'pB', 'pC', 'pD', 'pE', 'pF'}:
+        return render_template('index.html'), 404
+    else:
+        return render_template('problems/' + problem_id + '.html')
 
 
 @app.route('/record')
@@ -60,7 +69,7 @@ def reset():
     resp = make_response(redirect(url_for('index')))
     resp.set_cookie(key='completed', expires=0)
     with open('record.json', 'w') as f:
-        json.dump([], f)
+        json.dump({}, f)
     return resp
 
 

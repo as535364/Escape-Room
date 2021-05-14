@@ -9,7 +9,7 @@
 <body>
 
 <div class="container-md">
-    <h1 class="mt-3">密室逃脫</h1>
+    <h1 class="mt-3 ">密室逃脫</h1>
     {% with messages = get_flashed_messages(category_filter=['success']) %}
     {% if messages %}
     <div class="alert alert-success" role="alert">
@@ -53,8 +53,16 @@
             <label for="pA" class="form-label">Flag</label>
             <input type="text" class="form-control" name="flag" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
+
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pA') }}" role="button">pA</a>
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pB') }}" role="button">pB</a>
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pC') }}" role="button">pC</a>
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pD') }}" role="button">pD</a>
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pE') }}" role="button">pE</a>
+    <a class="btn btn-primary mt-3" href="{{ url_for('get_problem', problem_id='pF') }}" role="button">pF</a>
+
 </div>
 </body>
 </html>
